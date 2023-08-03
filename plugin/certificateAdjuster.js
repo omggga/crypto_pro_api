@@ -104,7 +104,8 @@ class CertificateAdjuster {
 			const isValid = await this.certApi.IsValid()
 			return await isValid.Result
 		} catch (error) {
-			throw new Error(`Произошла ошибка при проверке валидности сертификата: ${error.message}`)
+			console.error(`Failed to check certificate validity: `, error)
+			throw error
 		}
 	}
 

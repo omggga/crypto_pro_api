@@ -5,8 +5,15 @@ class pluginMethods {
 	}
 
 	async createObject(method) {
-		const supportedMethod = (await window.cadesplugin.CreateObject) ?  await window.cadesplugin.CreateObject(method) :  await window.cadesplugin.CreateObjectAsync(method)
-		return supportedMethod
+		try {
+			const supportedMethod = (await window.cadesplugin.CreateObject)
+				? await window.cadesplugin.CreateObject(method)
+				: await window.cadesplugin.CreateObjectAsync(method)
+			return supportedMethod
+		} catch (error) {
+			console.error(`Failed to create object for method ${method}: `, error)
+			throw error
+		}
 	}
 
  	oStore() {

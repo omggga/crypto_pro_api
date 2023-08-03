@@ -1,21 +1,20 @@
 const CONSTANTS = require('./constants/index')
 
-const pluginMethods = require('./pluginMethods')
-const certificateAdjuster = require('./certificateAdjuster')
-const plugin = new pluginMethods()
+const PluginMethods = require('./pluginMethods')
+const CertificateAdjuster = require('./certificateAdjuster')
+const plugin = new PluginMethods()
 
 async function init() {
-	return new Promise((resolve, reject) => {
-		window.cadesplugin.then(async () => {
-			if (await plugin.oStore()) {
-				resolve()
-			} else {
-				reject(new Error('Плагин не доступен.'))
-			}
-		}).catch((e) => {
-			reject(e)
-		})
-	})
+	try {
+		await window.cadesplugin
+		if (await plugin.oStore()) {
+			return
+		} else {
+			throw new Error('Плагин не доступен.')
+		}
+	} catch (e) {
+		throw e
+	}
 }
 
 async function about() {
@@ -77,7 +76,7 @@ async function getCertificateList() {
 					}
 				}
 
-				const adjustedCertificate = new certificateAdjuster(certificate)
+				const adjustedCertificate = new CertificateAdjuster(certificate)
 				return adjustedCertificate
 			} catch (error) {
 				throw new Error(`При переборе сертификатов произошла ошибка: ${error}`)
