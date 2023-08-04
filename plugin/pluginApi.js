@@ -1,7 +1,7 @@
-const CONSTANTS = require('./constants/index')
+import CONSTANTS from './constants/index'
+import PluginMethods from './pluginMethods'
+import CertificateAdjuster from './certificateAdjuster'
 
-const PluginMethods = require('./pluginMethods')
-const CertificateAdjuster = require('./certificateAdjuster')
 const plugin = new PluginMethods()
 
 async function init() {
@@ -484,8 +484,7 @@ function base64Encode (str) {
 	return out
 }
 
-
-module.exports = {
+export {
 	about,
 	version,
 	getCertificateList,

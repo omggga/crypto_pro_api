@@ -1,6 +1,5 @@
-require('./cadesplugin_api')
-
-const pluginApi = require('./plugin/pluginApi')
+import './cadesplugin_api'
+import pluginApi from './plugin/pluginApi'
 
 const pluginLoad = async () => {
 	try {
@@ -14,4 +13,4 @@ const pluginLoad = async () => {
 	}
 }
 
-module.exports = pluginLoad
+export default pluginLoad
