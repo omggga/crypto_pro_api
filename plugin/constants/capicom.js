@@ -4,104 +4,104 @@
  */
 
 module.exports = {
-	/* Локальное хранилище компьютера */
+	/* Local machine store */
 	CAPICOM_LOCAL_MACHINE_STORE: 1,
 
-	/* Хранилище текущего пользователя */
+	/* Current user's store */
 	CAPICOM_CURRENT_USER_STORE: 2,
 
-	/* Хранилище персональных сертификатов пользователя	*/
+	/* User's personal certificate store */
 	CAPICOM_MY_STORE: 'My',
 
 	/*
-	* Открывает хранилище на чтение/запись, если пользователь имеет права на чтение/запись.
-	* Если прав на запись нет, то хранилище открывается за чтение.
+	* Opens the store for reading/writing if the user has read/write permissions.
+	* If there are no write permissions, the store is opened for reading.
 	*/
 	CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED: 2,
 
-	/* Сохраняет все сертификаты цепочки за исключением корневого */
+	/* Saves all certificates in the chain except the root */
 	CAPICOM_CERTIFICATE_INCLUDE_CHAIN_EXCEPT_ROOT: 0,
 
-	/* Сертификат включает только конечное лицо	*/
+	/* Certificate includes only the end entity */
 	CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY: 2,
 
-	/* Сохраняет полную цепочку	*/
+	/* Saves the full chain */
 	CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN: 1,
 
-	/* Возвращает имя наименования сертификата */
+	/* Returns the certificate's subject name */
 	CAPICOM_CERT_INFO_SUBJECT_SIMPLE_NAME: 0,
 
-	/* Возвращает имя издателя сертификата */
+	/* Returns the certificate issuer's name */
 	CAPICOM_CERT_INFO_ISSUER_SIMPLE_NAME: 1,
 
-	/* Возвращает сертификаты соответствующие указанному хэшу SHA1 */
+	/* Returns certificates that match the specified SHA1 hash */
 	CAPICOM_CERTIFICATE_FIND_SHA1_HASH: 0,
 
-	/* Возвращает сертификаты, наименование которого точно или частично совпадает с указанным */
+	/* Returns certificates whose name exactly or partially matches the specified one */
 	CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME: 1,
 
-	/* Возвращает сертификаты, наименование издателя которого точно или частично совпадает с указанным */
+	/* Returns certificates whose issuer name exactly or partially matches the specified one */
 	CAPICOM_CERTIFICATE_FIND_ISSUER_NAME: 2,
 
-	/* Возвращает сертификаты, у которых наименование корневого точно или частично совпадает с указанным */
+	/* Returns certificates whose root name exactly or partially matches the specified one */
 	CAPICOM_CERTIFICATE_FIND_ROOT_NAME: 3,
 
-	/* Возвращает сертификаты, у которых шаблонное имя точно или частично совпадает с указанным	*/
+	/* Returns certificates whose template name exactly or partially matches the specified one */
 	CAPICOM_CERTIFICATE_FIND_TEMPLATE_NAME: 4,
 
-	/* Возвращает сертификаты, у которых имеется раширение, совпадающее с указанным	*/
+	/* Returns certificates that have an extension matching the specified one */
 	CAPICOM_CERTIFICATE_FIND_EXTENSION: 5,
 
-	/* Возвращает сертификаты, у которых идентификатор раширенного свойства совпадает с указанным */
+	/* Returns certificates that have an extended property ID matching the specified one */
 	CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY: 6,
 
-	/* Возвращает сертификаты, содержащие указанный OID политики */
+	/* Returns certificates containing the specified policy OID */
 	CAPICOM_CERTIFICATE_FIND_CERTIFICATE_POLICY: 8,
 
-	/* Возвращает действующие на текущее время сертификаты */
+	/* Returns certificates that are valid at the current time */
 	CAPICOM_CERTIFICATE_FIND_TIME_VALID: 9,
 
-	/* Возвращает сертификаты, время которых невалидно */
+	/* Returns certificates that are not yet valid */
 	CAPICOM_CERTIFICATE_FIND_TIME_NOT_YET_VALID: 10,
 
-	/* Возвращает просроченные сертификаты */
+	/* Returns expired certificates */
 	CAPICOM_CERTIFICATE_FIND_TIME_EXPIRED: 11,
 
-	/* Возвращает сертификаты, содержащие ключи, которые могут быть использованны указанным способом */
+	/* Returns certificates containing keys that can be used in the specified manner */
 	CAPICOM_CERTIFICATE_FIND_KEY_USAGE: 12,
 
-	/* Ключ может быть использован для создания цифровой подписи */
+	/* Key can be used to create a digital signature */
 	CAPICOM_DIGITAL_SIGNATURE_KEY_USAGE: 128,
 
 	CAPICOM_PROPID_ENHKEY_USAGE: 9,
 
-	/* Информация о ключе */
+	/* Key information */
 	CAPICOM_PROPID_KEY_PROV_INFO: 2,
 
-	/* Объект не соответствует ни одному из предуставленных типов */
+	/* Object does not match any of the provided types */
 	CAPICOM_OID_OTHER: 0,
 
-	/* Расширение сертификата, содержащее информацию о назначении открытого ключа */
+	/* Certificate extension containing information about the purpose of the public key */
 	CAPICOM_OID_KEY_USAGE_EXTENSION: 10,
 
-	/* Сертификат может быть использован для чего-то, что не предустановлено */
+	/* Certificate can be used for something that is not preset */
 	CAPICOM_EKU_OTHER: 0,
 
-	/* Сертификат может быть использован для аутентификации сервера	*/
+	/* Certificate can be used for server authentication */
 	CAPICOM_EKU_SERVER_AUTH: 1,
 
-	/* Сертификат может быть использован для аутентификации клиента */
+	/* Certificate can be used for client authentication */
 	CAPICOM_EKU_CLIENT_AUTH: 2,
 
-	/* Сертификат может быть использован для создания цифровой подписи */
+	/* Certificate can be used to create a digital signature */
 	CAPICOM_EKU_CODE_SIGNING: 3,
 
-	/* Сертификат может быть использован для защиты электронной подписи	*/
+	/* Certificate can be used for electronic signature protection */
 	CAPICOM_EKU_EMAIL_PROTECTION: 4,
 
-	/* Сертификат может быть использован для входа со смарт карты */
+	/* Certificate can be used for smart card login */
 	CAPICOM_EKU_SMARTCARD_LOGON: 5,
 
-	/* Время подписи */
+	/* Signing time */
 	CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME: 0
 }

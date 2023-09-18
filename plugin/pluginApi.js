@@ -10,7 +10,7 @@ async function init() {
 		if (await plugin.oStore()) {
 			return
 		} else {
-			throw new Error('Плагин не доступен.')
+			throw new Error('Plugin is not available.')
 		}
 	} catch (e) {
 		throw e
@@ -44,7 +44,7 @@ async function getCertificateList() {
 
 	const certificates = await oStore.Certificates
 	if (!certificates) {
-		console.log('КриптоПро: Нет доступных сертификатов')
+		console.log('CryptoPro: No available certificates')
 		return []
 	}
 
@@ -53,7 +53,7 @@ async function getCertificateList() {
 	const certificatesCount = await activeCertificatesWithPrivateKey.Count
 
 	if (!certificatesCount) {
-		console.log('КриптоПро: Нет доступных сертификатов с приватным ключём')
+		console.log('CryptoPro: No available certificates with a private key')
 		return []
 	}
 
@@ -79,7 +79,7 @@ async function getCertificateList() {
 				const adjustedCertificate = new CertificateAdjuster(certificate)
 				return adjustedCertificate
 			} catch (error) {
-				throw new Error(`При переборе сертификатов произошла ошибка: ${error}`)
+				throw new Error(`An error occurred while iterating through the certificates: ${error}`)
 			}
 		})
 	)
