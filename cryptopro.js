@@ -5,11 +5,10 @@ const pluginLoad = async () => {
 	try {
 		await window.cadesplugin
 		window.plugin = pluginApi
-		return {
-			pluginApi
-		}
+		return { pluginApi }
 	} catch (err) {
-		console.error(`Ошибка при инициализации плагина: ${err}`)
+		console.error(`Error initializing the plugin: ${err.message}`)
+		throw err
 	}
 }
 
