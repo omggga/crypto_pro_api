@@ -1,4 +1,4 @@
-class pluginMethods {
+class PluginMethods {
 
 	constructor() {
 
@@ -97,4 +97,4 @@ class pluginMethods {
 	}
 }
 
-module.exports = pluginMethods
+module.exports = PluginMethods
