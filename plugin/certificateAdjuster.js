@@ -1,7 +1,14 @@
 class CertificateAdjuster {
-
-	constructor(currentCert) {
-		const { certApi, issuerInfo, privateKey, serialNumber, thumbprint, subjectInfo, validPeriod } = currentCert
+	constructor(currentCert = {}) {
+		const {
+			certApi = null,
+			issuerInfo = "",
+			privateKey = "",
+			serialNumber = "",
+			thumbprint = "",
+			subjectInfo = "",
+			validPeriod = {}
+		} = currentCert
 
 		this.certApi = certApi
 		this.issuerInfo = issuerInfo
@@ -12,25 +19,20 @@ class CertificateAdjuster {
 		this.validPeriod = validPeriod
 	}
 
-	friendlyInfo(subjectIssuer) {
-		if (!this[subjectIssuer]) {
-			throw new Error('Не верно указан аттрибут')
+	friendlyInfo(type) {
+		const info = this[type]
+		if (!info) {
+			throw new Error(`Invalid attribute: ${type}`)
 		}
 
-		const subjectIssuerArr = this[subjectIssuer].split(', ')
-		const _possibleInfo = this.possibleInfo(subjectIssuer)
-		const formedSubjectIssuerInfo = subjectIssuerArr.map(tag => {
-			const tagArr = tag.split('=');
-			const index = `${tagArr[0]}=`;
-
+		return info.split(', ').map(tag => {
+			const [code, text] = tag.split('=')
 			return {
-				code: tagArr[0],
-				text: tagArr[1],
-				value: _possibleInfo[index]
+				code,
+				text,
+				value: this.possibleInfo(type)[`${code}=`] || code
 			}
 		})
-
-		return formedSubjectIssuerInfo
 	}
 
 	friendlySubjectInfo() {
@@ -43,59 +45,52 @@ class CertificateAdjuster {
 
 	friendlyValidPeriod() {
 		const { from, to } = this.validPeriod
-
 		return {
 			from: this.friendlyDate(from),
 			to: this.friendlyDate(to)
 		}
 	}
 
-	possibleInfo(subjectIssuer) {
-		const attrs = {
-			'UnstructuredName=': 'Неструктурированное имя',
+	possibleInfo(type) {
+		const baseAttrs = {
+			'UnstructuredName=': 'Unstructured Name',
 			'E=': 'Email',
-			'C=': 'Страна',
-			'S=': 'Регион',
-			'L=': 'Город',
-			'STREET=': 'Адрес',
-			'O=': 'Компания',
-			'T=': 'Должность',
-			'ОГРНИП=': 'ОГРНИП',
-			'OGRNIP=': 'ОГРНИП',
-			'SNILS=': 'СНИЛС',
-			'СНИЛС=': 'СНИЛС',
-			'INN=': 'ИНН',
-			'ИНН=': 'ИНН',
-			'ОГРН=': 'ОГРН',
-			'OGRN=': 'ОГРН'
+			'C=': 'Country',
+			'S=': 'Region',
+			'L=': 'City',
+			'STREET=': 'Address',
+			'O=': 'Company',
+			'T=': 'Position',
+			'ОГРНИП=': 'OGRNIP',
+			'SNILS=': 'SNILS',
+			'INN=': 'INN',
+			'ОГРН=': 'OGRN'
 		}
 
-		switch (subjectIssuer) {
-			case 'subjectInfo':
-				attrs['SN='] = 'Фамилия'
-				attrs['G='] = 'Имя/Отчество'
-				attrs['CN='] = 'Владелец'
-				attrs['OU='] = 'Отдел/подразделение'
-				return attrs
-
-			case 'issuerInfo':
-				attrs['CN='] = 'Удостоверяющий центр'
-				attrs['OU='] = 'Тип'
-				return attrs
-
-			default:
-				throw new Error('Не верно указан кейс получаемых данных')
+		if (type === 'subjectInfo') {
+			return {
+				...baseAttrs,
+				'SN=': 'Surname',
+				'G=': 'Name/Patronymic',
+				'CN=': 'Owner',
+				'OU=': 'Department'
+			}
+		} else if (type === 'issuerInfo') {
+			return {
+				...baseAttrs,
+				'CN=': 'Certification Center',
+				'OU=': 'Type'
+			}
+		} else {
+			throw new Error(`Invalid data type: ${type}`)
 		}
 	}
 
 	friendlyDate(date) {
 		const newDate = new Date(date)
-		const [day, month, year] = [newDate.getDate(), newDate.getMonth() + 1, newDate.getFullYear()]
-		const [hours, minutes, seconds] = [newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()]
-
 		return {
-			ddmmyy: `${day}.${month}.${year}`,
-			hhmmss: `${hours}:${minutes}:${seconds}`
+			ddmmyy: `${newDate.getDate()}.${newDate.getMonth() + 1}.${newDate.getFullYear()}`,
+			hhmmss: `${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
 		}
 	}
 
@@ -105,10 +100,9 @@ class CertificateAdjuster {
 			return await isValid.Result
 		} catch (error) {
 			console.error(`Failed to check certificate validity: `, error)
-			throw error
+			throw new Error("Error checking certificate validity.")
 		}
 	}
-
 }
 
 module.exports = CertificateAdjuster
